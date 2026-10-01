@@ -1,0 +1,8 @@
+Programa para la practica de muones
+
+Correr:
+sudo ./drs_exam
+
+El programa va a guardar los eventos en el directorio medidas
+En su configuracion por defecto crea dos archivos uno en el que guarda todos los eventos y otro en el que guarda solo los eventos que pasan un criterio de seleccion.
+Como ejemplo se usa el criterio de que haya picos en al menos dos de los detectores.
