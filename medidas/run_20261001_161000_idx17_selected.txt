@@ -1,0 +1,2 @@
+# DRS4 export. File index 17, run_id=./medidas/run_20261001_161000
+# Columns: t[ns] u1[mV] u2[mV] u3[mV]
