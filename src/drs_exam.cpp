@@ -318,11 +318,11 @@ int main(int argc, char *argv[])
     // Ch-1 is the one that triggers
     // here we check if Ch-2 Ch-3 also have a peak
     const bool peakCh2 =   passes_criteria(wave_array[1],100,150, kThr);
-    //~ const bool peakCh3 =   passes_criteria(wave_array[2],100,150, kThr);  
-    //~ std::cout << "   Sel: " << peakCh2 << " " << peakCh3 << std::endl;   
-    std::cout << "   Sel: " << peakCh2 << std::endl;
-    //~ if (peakCh2*peakCh3) {
-    if (peakCh2) {
+    const bool peakCh3 =   passes_criteria(wave_array[2],100,150, kThr);  
+    std::cout << "   Sel: " << peakCh2 << " " << peakCh3 << std::endl;   
+    // std::cout << "   Sel: " << peakCh2 << std::endl;
+    if (peakCh2*peakCh3) {
+    // if (peakCh2) {
       printf("   Evento seleccionado!\n");
       fprintf(W.fsel, "Event #%d  ts=%s  [SELECTED]\n", j, ts.c_str());
       fprintf(W.fsel, "  t[ns]  u1[mV]  u2[mV]  u3[mV]\n");
