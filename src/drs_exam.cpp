@@ -31,11 +31,51 @@
 #include "strlcpy.h"
 #include "DRS.h"
 
+#include <sys/stat.h>  // mkdir / stat for output folder creation
+#include <errno.h>
+#ifdef _MSC_VER
+  #include <direct.h>  // _mkdir
+#endif
+
 
 const double kThr   = -100 ; // En mVolts
 const int kn_save   = 1024;
 const bool save_all = false;
-const std::string outDir = "./medidas/"; 
+const std::string kDefaultOutDir = "./medidas/";
+std::string outDir = kDefaultOutDir; // may be overridden by argv[1]
+
+// Create a single directory; returns true if it exists afterwards
+static bool make_one_dir(const std::string &path)
+{
+#ifdef _MSC_VER
+  if (_mkdir(path.c_str()) == 0 || errno == EEXIST) return true;
+#else
+  if (mkdir(path.c_str(), 0755) == 0 || errno == EEXIST) return true;
+#endif
+  return false;
+}
+
+// Recursively create a directory path (like `mkdir -p`)
+static bool make_dirs(const std::string &path)
+{
+  if (path.empty()) return true;
+  for (size_t pos = 1; pos <= path.size(); pos++) {
+    if (pos == path.size() || path[pos] == '/' || path[pos] == '\\') {
+      std::string sub = path.substr(0, pos);
+      if (sub.empty() || sub == "." || sub == "..") continue;
+      if (!make_one_dir(sub)) {
+        perror(("ERROR: Cannot create directory " + sub).c_str());
+        return false;
+      }
+    }
+  }
+  struct stat st;
+  if (stat(path.c_str(), &st) != 0 || !(st.st_mode & S_IFDIR)) {
+    fprintf(stderr, "ERROR: %s is not a directory\n", path.c_str());
+    return false;
+  }
+  return true;
+}
 
 
 /*==================== NEW: small helpers ====================*/
@@ -174,13 +214,21 @@ struct RotatingWriters {
 
 /*==================== END helpers ====================*/
 
-int main()
+int main(int argc, char *argv[])
 {
   int i, j, nBoards;
   DRS *drs;
   DRSBoard *b;
   float time_array[8][1024];
   float wave_array[8][1024];
+
+  // Output folder: first CLI argument (absolute or relative to cwd), else default
+  if (argc > 1 && argv[1][0] != '\0')
+    outDir = argv[1];
+  if (outDir.back() != '/' && outDir.back() != '\\')
+    outDir += '/';
+  if (!make_dirs(outDir)) return 1;
+  printf("Saving files to: %s\n", outDir.c_str());
 
   drs = new DRS();
 
