@@ -1,0 +1,2 @@
+# DRS4 export. File index 30, run_id=madidas/velocidades_5/run_20261022_201335
+# Columns: t[ns] u1[mV] u2[mV] u3[mV]

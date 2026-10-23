@@ -38,7 +38,7 @@
 #endif
 
 
-const double kThr   = -100 ; // En mVolts
+const double kThr   = -120 ; // En mVolts
 const int kn_save   = 1024;
 const bool save_all = false;
 const std::string kDefaultOutDir = "./medidas/";
@@ -253,7 +253,7 @@ int main(int argc, char *argv[])
   b->Init();
 
   // Sampling frequency & modes (unchanged)
-  b->SetFrequency(0.6, true);
+  b->SetFrequency(800, true);
   b->SetTranspMode(1);
   b->SetInputRange(0);
   b->EnableTcal(0);        // NOTE: use your real inputs; disable TCAL for real data
