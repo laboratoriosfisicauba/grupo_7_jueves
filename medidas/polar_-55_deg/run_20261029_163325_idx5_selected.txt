@@ -1,0 +1,2 @@
+# DRS4 export. File index 5, run_id=medidas/polar_-55_deg/run_20261029_163325
+# Columns: t[ns] u1[mV] u2[mV] u3[mV]
