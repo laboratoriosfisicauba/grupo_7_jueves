@@ -37,9 +37,9 @@ OBJECTS       = musbstd.o mxml.o strlcpy.o
 
 
 ifeq ($(OS),Darwin)
-all: drsosc drscl drs_exam drs_exam_multi DRSOsc.app
+all: drsosc drscl drs_exam drs_exam_multi drs_tof DRSOsc.app
 else
-all: drsosc drscl drs_exam drs_exam_multi
+all: drsosc drscl drs_exam drs_exam_multi drs_tof
 endif
 
 DRSOsc.app: drsosc
@@ -65,6 +65,9 @@ drs_exam: $(OBJECTS) DRS.o averager.o drs_exam.o
 drs_exam_multi: $(OBJECTS) DRS.o averager.o drs_exam_multi.o
 	$(CXX) $(CFLAGS) $(OBJECTS) DRS.o averager.o drs_exam_multi.o -o drs_exam_multi $(LIBS) $(WXLIBS)
 
+drs_tof: $(OBJECTS) DRS.o averager.o drs_tof.o
+	$(CXX) $(CFLAGS) $(OBJECTS) DRS.o averager.o drs_tof.o -o drs_tof $(LIBS) $(WXLIBS)
+
 main.o: src/main.cpp include/mxml.h include/DRS.h
 	$(CXX) $(CFLAGS) $(WXFLAGS) -c $<
 
@@ -75,6 +78,9 @@ drs_exam.o: src/drs_exam.cpp include/mxml.h include/DRS.h
 	$(CXX) $(CFLAGS) -c $<
 
 drs_exam_multi.o: src/drs_exam_multi.cpp include/mxml.h include/DRS.h
+	$(CXX) $(CFLAGS) -c $<
+
+drs_tof.o: src/drs_tof.cpp include/mxml.h include/DRS.h
 	$(CXX) $(CFLAGS) -c $<
 
 $(CPP_OBJ): %.o: src/%.cpp include/%.h include/mxml.h include/DRS.h
