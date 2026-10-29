@@ -11,3 +11,7 @@ Visor en la terminal (sirve por SSH, sin entorno grafico):
 python3 visor.py medidas/mi_carpeta        # recorrer mediciones guardadas
 python3 visor.py medidas/mi_carpeta -f     # en vivo, mientras corre drs_exam
 Teclas: flechas = evento, [ ] = archivo, 1/2/3 = canales, s = separar, +/- = zoom, q = salir
+
+Visor para las mediciones de tiempo de vuelo (drs_tof; ver README_TOF.md):
+python3 visor_tof.py medidas/tof          # ondas y tabla/histograma de eventos
+python3 visor_tof.py medidas/tof -f       # en vivo

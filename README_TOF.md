@@ -232,6 +232,28 @@ Con `--no-mostrar` no abre ventanas (útil por ssh); `--guardar DIR` guarda PNGs
 Ojo: no mezclar en el ajuste corridas con los detectores invertidos (ver
 abajo): pasarlas por separado.
 
+### Visor en la terminal
+
+`visor_tof.py` es la version para este formato del `visor.py` de drs_exam:
+sirve por ssh, sin entorno grafico, y necesita `visor.py` en la misma carpeta.
+
+```bash
+python3 visor_tof.py medidas/tof          # recorre ondas y eventos de la carpeta
+python3 visor_tof.py medidas/tof -f       # en vivo, mientras corre drs_tof medir
+python3 visor_tof.py medidas/tof/tof_d100cm_20261029_153000_idx0_eventos.csv
+```
+
+- Sobre un `*_ondas.txt` dibuja los 3 canales (cada uno con su eje de tiempo),
+  la linea de umbral y una marca vertical en el `t_cfd` de cada canal (tomado
+  del `*_eventos.csv` de la misma corrida), y muestra dt31/dt21/dt32 del evento.
+  Teclas: flechas = evento, `1/2/3` = canales, `s` = separar, `+/-` = zoom
+  (centrado en el pulso de CH1), `u` = umbral, `c` = marcas de t_cfd.
+- Sobre un `*_eventos.csv` muestra el histograma de dt31 (o de dt21, dt32,
+  amp1..3 con `h`) con N, media, error, desviacion y mediana, y debajo la tabla
+  de eventos. `b`/`B` cambian los bins.
+- `Enter` salta entre la onda y la fila de la tabla del mismo evento;
+  `[`/`]` cambian de archivo; `f` modo en vivo; `q` salir.
+
 ## 6. Chequeos de consistencia
 
 1. **Invertir los detectores de arriba y abajo.** Intercambiar físicamente las
