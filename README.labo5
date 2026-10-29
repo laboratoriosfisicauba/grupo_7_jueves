@@ -6,3 +6,8 @@ sudo ./drs_exam
 El programa va a guardar los eventos en el directorio medidas
 En su configuracion por defecto crea dos archivos uno en el que guarda todos los eventos y otro en el que guarda solo los eventos que pasan un criterio de seleccion.
 Como ejemplo se usa el criterio de que haya picos en al menos dos de los detectores.
+
+Visor en la terminal (sirve por SSH, sin entorno grafico):
+python3 visor.py medidas/mi_carpeta        # recorrer mediciones guardadas
+python3 visor.py medidas/mi_carpeta -f     # en vivo, mientras corre drs_exam
+Teclas: flechas = evento, [ ] = archivo, 1/2/3 = canales, s = separar, +/- = zoom, q = salir
